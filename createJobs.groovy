@@ -1,10 +1,18 @@
+pipelineJob('pipelineJob') {
+    definition {
+        cps {
+            script(readFileFromWorkspace('pipelineJob.groovy'))
+            sandbox()
+        }
+    }
+}
 pipelineJob('theme-park-job') {
     definition {
         cpsScm {
             scm {
                 git {
                     remote {
-                        url 'https://github.com/tkgregory/spring-boot-api-example.git'
+                        url 'https://github.com/raiders032/spring-boot-api-example.git'
                     }
                     branch 'master'
                 }
@@ -12,12 +20,18 @@ pipelineJob('theme-park-job') {
         }
     }
 }
-
-pipelineJob('pipelineJob') {
+pipelineJob('theme-park-job-docker') {
     definition {
-        cps {
-            script(readFileFromWorkspace('pipelineJob.groovy'))
-            sandbox()
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url 'https://github.com/raiders032/spring-boot-api-example.git'
+                    }
+                    branch 'master'
+                    scriptPath('Jenkinsfile-docker')
+                }
+            }
         }
     }
 }
